@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+      <p id="currentTime"></p>
+      <script src="script.js"></script>
+  </body><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Roshni ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+overflow:hidden;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(-45deg,#ff5fa2,#ff9ec9,#ffd6ea,#fff3f8);
+background-size:400% 400%;
+animation:bg 15s infinite alternate;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%;}
+100%{background-position:100% 50%;}
+}
+
+/* Glass Card */
+
+.card{
+
+position:relative;
+width:92%;
+max-width:760px;
+padding:40px;
+border-radius:30px;
+background:rgba(255,255,255,.18);
+backdrop-filter:blur(15px);
+box-shadow:0 20px 50px rgba(0,0,0,.25);
+text-align:center;
+color:white;
+z-index:10;
+
+}
+
+.card h1{
+
+font-family:'Pacifico',cursive;
+font-size:3rem;
+margin-bottom:15px;
+text-shadow:0 0 20px gold;
+
+}
+
+.card h2{
+
+font-size:1.4rem;
+margin-bottom:20px;
+
+}
+
+.message{
+
+font-size:18px;
+line-height:1.9;
+margin-top:20px;
+
+}
+
+/* Countdown */
+
+#countdownBox{
+
+margin:25px auto;
+padding:20px;
+width:100%;
+max-width:500px;
+border-radius:20px;
+background:rgba(255,255,255,.15);
+box-shadow:0 0 20px rgba(255,255,255,.3);
+
+}
+
+#countdownTitle{
+
+font-size:24px;
+margin-bottom:10px;
+
+}
+
+#countdown{
+
+font-size:30px;
+font-weight:bold;
+color:#fff700;
+text-shadow:0 0 15px gold;
+
+}
+
+/* Button */
+
+button{
+
+margin-top:30px;
+padding:15px 35px;
+border:none;
+border-radius:50px;
+font-size:18px;
+cursor:pointer;
+background:#ff4081;
+color:white;
+transition:.3s;
+
+}
+
+button:hover{
+
+transform:scale(1.1);
+
+}
+
+/* Floating Hearts */
+
+.heart{
+
+position:absolute;
+bottom:-50px;
+font-size:25px;
+animation:heartMove linear infinite;
+
+}
+
+@keyframes heartMove{
+
+0%{
+
+transform:translateY(0) scale(.5);
+opacity:0;
+
+}
+
+20%{
+
+opacity:1;
+
+}
+
+100%{
+
+transform:translateY(-120vh) rotate(360deg) scale(1.5);
+opacity:0;
+
+}
+
+}
+
+/* Balloons */
+
+.balloon{
+
+position:absolute;
+bottom:-100px;
+font-size:60px;
+animation:balloonMove linear infinite;
+
+}
+
+@keyframes balloonMove{
+
+0%{
+
+transform:translateY(0);
+
+}
+
+100%{
+
+transform:translateY(-130vh);
+
+}
+
+}
+
+/* Sparkles */
+
+.spark{
+
+position:absolute;
+width:5px;
+height:5px;
+background:white;
+border-radius:50%;
+animation:spark 2s infinite;
+
+}
+
+@keyframes spark{
+
+0%,100%{
+
+opacity:0;
+transform:scale(1);
+
+}
+
+50%{
+
+opacity:1;
+transform:scale(3);
+
+}
+
+}
+
+canvas{
+
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
+
+}
+
+.footer{
+
+margin-top:25px;
+font-size:20px;
+font-weight:bold;
+color:#fff4c8;
+
+}
+
+@media(max-width:700px){
+
+.card{
+
+padding:25px;
+
+}
+
+.card h1{
+
+font-size:2.2rem;
+
+}
+
+.message{
+
+font-size:16px;
+
+}
+
+#countdown{
+
+font-size:22px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<div class="card">
+
+<h1>🎉 Happy Birthday Roshni 🎂💖</h1>
+
+<h2>Dear Sister ❤️</h2>
+
+<div id="countdownBox">
+
+<div id="countdownTitle">
+
+⏳ Birthday Countdown
+
+</div>
+
+<div id="countdown">
+
+Loading...
+
+</div>
+
+</div>
+
+<div class="message">
+
+Wishing you a day filled with <b>love</b>, laughter, and unforgettable moments.
+
+May your dreams shine as brightly as your name, and may every new year bring happiness, success, good health, and endless blessings.
+
+<br><br>
+
+Keep smiling, keep believing in yourself, and never stop chasing your dreams.
+
+<br><br>
+
+🎈 Happy Birthday once again, dear sister! 🌸
+
+<br><br>
+
+May God bless you with a beautiful life full of joy and love. ❤️
+
+</div>
+
+<button id="musicBtn">
+
+🎵 Play Music
+
+</button>
+
+<div class="footer">
+
+Made with ❤️ By Your Brother
+
+</div>
+
+</div>
+
+<script>
+// =======================
+// Birthday Countdown
+// =======================
+const countdown = document.getElementById("countdown");
+
+// Set birthday (30 July 2026)
+const birthday = new Date("2026-07-30T00:00:00").getTime();
+
+function updateCountdown(){
+
+    const now = new Date().getTime();
+    const distance = birthday - now;
+
+    if(distance <= 0){
+
+        countdown.innerHTML="🎉 HAPPY BIRTHDAY ROSHNI! 🎂💖";
+
+        // Fireworks every second
+        setInterval(createFirework,800);
+
+        return;
+    }
+
+    const days=Math.floor(distance/(1000*60*60*24));
+    const hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+    const minutes=Math.floor((distance%(1000*60*60))/(1000*60));
+    const seconds=Math.floor((distance%(1000*60))/1000);
+
+    countdown.innerHTML=
+    days+"d : "+hours+"h : "+minutes+"m : "+seconds+"s";
+}
+
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+
+// =======================
+// Floating Hearts
+// =======================
+
+function createHeart(){
+
+    const heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML=["💖","💕","💗","❤️","💝"][Math.floor(Math.random()*5)];
+
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=(5+Math.random()*5)+"s";
+    heart.style.fontSize=(20+Math.random()*30)+"px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),10000);
+
+}
+
+setInterval(createHeart,300);
+
+
+// =======================
+// Balloons
+// =======================
+
+function createBalloon(){
+
+    const b=document.createElement("div");
+    b.className="balloon";
+    b.innerHTML="🎈";
+
+    b.style.left=Math.random()*100+"vw";
+    b.style.animationDuration=(8+Math.random()*5)+"s";
+
+    document.body.appendChild(b);
+
+    setTimeout(()=>b.remove(),14000);
+
+}
+
+setInterval(createBalloon,1200);
+
+
+// =======================
+// Sparkles
+// =======================
+
+function sparkle(){
+
+    const s=document.createElement("div");
+    s.className="spark";
+
+    s.style.left=Math.random()*100+"vw";
+    s.style.top=Math.random()*100+"vh";
+
+    document.body.appendChild(s);
+
+    setTimeout(()=>s.remove(),2000);
+
+}
+
+setInterval(sparkle,120);
+
+
+// =======================
+// Fireworks
+// =======================
+
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+window.addEventListener("resize",()=>{
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+});
+
+let particles=[];
+
+function createFirework(){
+
+    let x=Math.random()*canvas.width;
+    let y=Math.random()*canvas.height/2;
+
+    for(let i=0;i<80;i++){
+
+        particles.push({
+
+            x:x,
+            y:y,
+
+            dx:(Math.random()-0.5)*8,
+            dy:(Math.random()-0.5)*8,
+
+            life:100,
+
+            color:"hsl("+Math.random()*360+",100%,60%)"
+
+        });
+
+    }
+
+}
+
+function animate(){
+
+    ctx.fillStyle="rgba(0,0,0,.15)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach((p,index)=>{
+
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,3,0,Math.PI*2);
+        ctx.fillStyle=p.color;
+        ctx.fill();
+
+        p.x+=p.dx;
+        p.y+=p.dy;
+
+        p.life--;
+
+        if(p.life<=0){
+
+            particles.splice(index,1);
+
+        }
+
+    });
+
+    requestAnimationFrame(animate);
+
+}
+
+animate();
+
+setInterval(createFirework,1800);
+
+
+// =======================
+// Confetti
+// =======================
+
+function confetti(){
+
+    const c=document.createElement("div");
+
+    c.innerHTML=["🎉","✨","🎊","⭐"][Math.floor(Math.random()*4)];
+
+    c.style.position="fixed";
+    c.style.left=Math.random()*100+"vw";
+    c.style.top="-40px";
+    c.style.fontSize=(15+Math.random()*20)+"px";
+    c.style.transition="4s linear";
+
+    document.body.appendChild(c);
+
+    setTimeout(()=>{
+
+        c.style.top="110vh";
+
+    },50);
+
+    setTimeout(()=>{
+
+        c.remove();
+
+    },4500);
+
+}
+
+setInterval(confetti,200);
+
+
+// =======================
+// Music Button
+// =======================
+
+const musicBtn = document.getElementById("musicBtn");
+
+let audioContext;
+
+function playCelebrationTune() {
+
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    const notes = [
+        {f:523.25,d:0.3},
+        {f:523.25,d:0.3},
+        {f:587.33,d:0.5},
+        {f:523.25,d:0.5},
+        {f:698.46,d:0.5},
+        {f:659.25,d:0.8},
+        {f:523.25,d:0.3},
+        {f:523.25,d:0.3},
+        {f:587.33,d:0.5},
+        {f:523.25,d:0.5},
+        {f:783.99,d:0.5},
+        {f:698.46,d:0.8}
+    ];
+
+    let time = audioContext.currentTime;
+
+    notes.forEach(note => {
+
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+
+        osc.type = "sine";
+        osc.frequency.value = note.f;
+
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+
+        gain.gain.setValueAtTime(0.0001, time);
+        gain.gain.exponentialRampToValueAtTime(0.3, time + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, time + note.d);
+
+        osc.start(time);
+        osc.stop(time + note.d);
+
+        time += note.d;
+    });
+
+}
+
+musicBtn.addEventListener("click", playCelebrationTune);
+
+
+// =======================
+// End
+// =======================
+</script>
+
+</body>
+</html>
